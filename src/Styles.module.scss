@@ -6,7 +6,7 @@
 	height: 100vh;
 }
 .container {
-	padding: 20px;
+	padding: 2vmin;
 	max-width: 100%;
 	max-height: 100%;
 }
@@ -26,16 +26,42 @@
 	align-items: flex-start;
 	justify-content: flex-start;
 	flex-wrap: wrap;
-	gap: 2vmin;
+	gap: 4vmin;
 	& > * {
 		width: 100%;
-		max-width: 50vmin;
+		max-width: 42vmin;
 		div {
 			font-size: 3vmin;
 		}
-		@media screen and (max-width: 430px) {
-			max-width: 80vmin;
-			min-height: 30vmin;
+	}
+	ul,
+	h2 {
+		margin: 0;
+		font-size: 3vmin;
+		line-height: 1;
+	}
+	h2 {
+		margin-bottom: 2vmin;
+	}
+
+	ul {
+		padding-left: 3vmin;
+		height: 85vh;
+		overflow-y: auto;
+		li {
+			margin-bottom: 0.5vmin;
+			border-radius: 0.25em;
+			cursor: pointer;
+		}
+	}
+	@media screen and (max-width: 430px) {
+		gap: 4vmin;
+		& > * {
+			max-width: 100%;
+			height: 100%;
+		}
+		ul {
+			height: 30vh;
 		}
 	}
 }
@@ -57,24 +83,36 @@ button {
 	cursor: pointer;
 }
 
-ul,
-h2 {
-	margin: 0;
-	font-size: 3vmin;
-	line-height: 1;
-}
-h2 {
-	margin-bottom: 2vmin;
-}
-
-ul {
-	padding-left: 3vmin;
-	li {
-		margin-bottom: 0.5vmin;
-		border-radius: 0.25em;
-		cursor: pointer;
-	}
-}
 .selected {
 	color: rgb(0, 134, 230);
+}
+
+.details {
+	.avatar,
+	.bio,
+	.followers,
+	.repos {
+		display: block;
+		padding: 0;
+		margin: 0;
+		margin-top: 2vmin;
+		color: inherit;
+		text-decoration: none;
+	}
+	.username {
+		width: max-content;
+	}
+
+	.avatar {
+		width: 100%;
+		border-radius: 0.5em;
+	}
+	.bio {
+		font-size: 2.5vmin;
+	}
+	.followers,
+	.repos {
+		width: max-content;
+		font-size: 2.5vmin;
+	}
 }
