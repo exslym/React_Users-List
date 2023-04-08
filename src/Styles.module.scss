@@ -16,9 +16,15 @@
 	justify-content: flex-start;
 	gap: 1vmin;
 	& > * {
-		height: 50px;
+		height: 7vmin;
+	}
+	@media screen and (max-width: 430px) {
+		& > * {
+			height: 1.8em;
+		}
 	}
 }
+
 .flexbox {
 	margin-top: 2vmin;
 	padding: 2vmin;
@@ -62,11 +68,16 @@
 		}
 		ul {
 			height: 30vh;
+			font-size: 1em;
+		}
+		h2 {
+			font-size: 1.4em;
 		}
 	}
 }
 input,
-button {
+button,
+.timer {
 	margin: 0;
 	padding: 0;
 	padding: 1vmin;
@@ -76,11 +87,25 @@ button {
 	border-style: outset;
 	border-color: buttonborder;
 	@media screen and (max-width: 430px) {
-		font-size: 1.25em;
+		font-size: 1em;
 	}
 }
 button {
 	cursor: pointer;
+}
+
+button {
+	padding: 1vmin 2vmin;
+}
+.timer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 7vmin;
+	text-align: center;
+	@media screen and (max-width: 430px) {
+		width: max-content;
+	}
 }
 
 .selected {
@@ -100,12 +125,16 @@ button {
 		text-decoration: none;
 	}
 	.username {
+		margin-top: 2vmin;
 		width: max-content;
 	}
 
 	.avatar {
 		width: 100%;
 		border-radius: 0.5em;
+		@media screen and (max-width: 430px) {
+			max-width: 60vmin;
+		}
 	}
 	.bio {
 		font-size: 2.5vmin;
@@ -114,5 +143,8 @@ button {
 	.repos {
 		width: max-content;
 		font-size: 2.5vmin;
+		@media screen and (max-width: 430px) {
+			font-size: 1.4em;
+		}
 	}
 }

@@ -27,9 +27,16 @@ type UsersListPropsType = {
 	selectedUser: SearchUserType | null;
 	onUserSelect: (user: SearchUserType) => void;
 };
+type TimerPropsType = {
+	seconds: number;
+	timerKey: string;
+	onChange: (actualSeconds: number) => void;
+};
 type UserDetailsPropsType = {
 	user: SearchUserType | null;
 };
+
+const startTimerSeconds = 30;
 
 export const Search = (props: SearchPropsType) => {
 	const initialSearchState = 'developer';
@@ -94,22 +101,56 @@ export const UsersList = (props: UsersListPropsType) => {
 	);
 };
 
+export const Timer = (props: TimerPropsType) => {
+	const [seconds, setSeconds] = useState(props.seconds);
+
+	useEffect(() => {
+		setSeconds(props.seconds);
+	}, [props.seconds]);
+
+	useEffect(() => {
+		props.onChange(seconds);
+	}, [seconds]);
+
+	useEffect(() => {
+		const intervalID = setInterval(() => {
+			setSeconds(prev => prev - 1);
+		}, 1000);
+
+		return () => clearInterval(intervalID);
+	}, [props.timerKey]);
+
+	return <div>{seconds}</div>;
+};
+
 export const UserDetails = (props: UserDetailsPropsType) => {
 	const [userDetails, setUserDetails] = useState<UserType | null>(null);
+	const [seconds, setSeconds] = useState(startTimerSeconds);
+
 	useEffect(() => {
 		console.log('SYNC USER DETAILS');
 		if (!!props.user) {
 			axios.get<UserType>(`https://api.github.com/users/${props.user.login}`).then(res => {
+				setSeconds(startTimerSeconds);
 				setUserDetails(res.data);
 			});
 		}
 	}, [props.user]);
+
+	useEffect(() => {
+		if (seconds < 1) {
+			setUserDetails(null);
+		}
+	}, [seconds]);
 
 	return (
 		<>
 			<div className={styles.details}>
 				{userDetails && (
 					<div>
+						<div className={styles.timer}>
+							<Timer seconds={seconds} onChange={setSeconds} timerKey={userDetails.id.toString()} />
+						</div>
 						<h2 className={styles.username}>{userDetails.login}</h2>
 						<img className={styles.avatar} src={userDetails.avatar_url} alt='' />
 						<div className={styles.bio}>{userDetails.bio}</div>
